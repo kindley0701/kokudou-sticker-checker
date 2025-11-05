@@ -21,3 +21,12 @@ console_command = '/rails/bin/rails console'
   memory = '256mb'
   cpu_kind = 'shared'
   cpus = 1
+
+[env]
+  RAILS_ENV = "production"
+
+[experimental]
+  allowed_public_ports = []
+
+[deploy]
+  release_command = "bundle exec rails db:migrate"
