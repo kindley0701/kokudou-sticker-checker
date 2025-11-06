@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  
+  scope module: :public do
+    root to: 'homes#top'
+    get 'homes/about' , as: 'about'
+  end
+  
+  # namespace :public do
+  #   get 'homes/top'
+  #   get 'homes/about'
+  # end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
