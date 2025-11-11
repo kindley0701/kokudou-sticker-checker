@@ -5,8 +5,10 @@ class CreateShops < ActiveRecord::Migration[7.1]
       t.integer :sticker_id
       t.string :name
       t.integer :prefecture
-      t.integer :zipcode
+      t.string :zipcode
       t.string :address
+      t.float :latitude
+      t.float :longitude
 
       t.timestamps
     end

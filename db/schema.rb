@@ -34,14 +34,16 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_11_051747) do
     t.integer "sticker_id"
     t.string "name"
     t.integer "prefecture"
-    t.integer "zipcode"
+    t.string "zipcode"
     t.string "address"
+    t.float "latitude"
+    t.float "longitude"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "stickers", force: :cascade do |t|
-    t.integer "road_number"
+    t.integer "road_number", null: false
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
