@@ -35,3 +35,6 @@
 /config/master.key
 
 # /db/seeds.rb
+/db/development.sqlite3
+/db/development.sqlite3-shm
+/db/development.sqlite3-wal
