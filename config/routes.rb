@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :users
+  devise_for :admins
   
   scope module: :public do
     root to: 'homes#top'
