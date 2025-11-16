@@ -24,7 +24,6 @@ console_command = '/rails/bin/rails console'
 
 [env]
   RAILS_ENV = "production"
-  DATABASE_URL = "postgres://username:password@kokudou-sticker-checker-db.internal:5432/kokudou_sticker_checker_db"
 
 [experimental]
   allowed_public_ports = []
