@@ -7,7 +7,13 @@ Rails.application.routes.draw do
     sessions: "admins/sessions"
   }
 
-  devise_for :users
+  devise_for :users, controllers: {
+    # ↓ローカルに追加されたコントローラーを参照する(コントローラー名: "コントローラーの参照先")
+    registrations: "public/registrations",
+    sessions: "public/sessions",
+    passwords: "public/passwords",
+    confirmations: "public/confirmations"
+  }
   
   scope module: :public do
     root to: 'homes#top'
