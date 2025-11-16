@@ -1,0 +1,22 @@
+<h1>Public::Stickers#index</h1>
+<p>Find me in app/views/public/stickers/index.html.erb</p>
+
+<table>
+    <thead>
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @stickers.each do |sticker| %>
+            <tr>
+                <td>✓</td>
+                <td>国道<%= sticker.road_number %></td>
+                <td><%= link_to "ステッカー販売店", sticker_path(sticker.id) %></td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
+

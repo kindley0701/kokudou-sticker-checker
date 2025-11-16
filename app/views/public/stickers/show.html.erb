@@ -1,0 +1,29 @@
+<h1>Public::Stickers#show</h1>
+<p>Find me in app/views/public/stickers/show.html.erb</p>
+
+<h1>国道<%= @sticker.road_number %>号 販売店リスト</h1>
+<table>
+    <thead>
+        <tr>
+            <th>都道府県</th>
+            <th>店舗名</th>
+            <th>住所</th>
+            <th>Google Map</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @shops.each do |shop| %>
+            <tr>
+                <td><%= shop.prefecture %></td>
+                <td><%= shop.name %></td>
+                <td>
+                    〒<%= shop.zipcode %>
+                    <br>
+                    <%= shop.address %>
+                </td>
+                <td><%= link_to "マップ", "https://www.google.com/maps/search/?api=1&query=#{CGI.escape(shop.name)}", target: "_blank", rel: "noopener" %></td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
+

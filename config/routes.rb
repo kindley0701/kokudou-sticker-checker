@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
   namespace :admins do
     root to: 'homes#top'
   end
@@ -18,6 +19,7 @@ Rails.application.routes.draw do
   scope module: :public do
     root to: 'homes#top'
     get 'homes/about' , as: 'about'
+    resources 'stickers', only: [:index, :show]
   end
   
   # namespace :public do

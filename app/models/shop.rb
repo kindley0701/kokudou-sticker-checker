@@ -1,5 +1,5 @@
 class Shop < ApplicationRecord
-
+  belongs_to :sticker
 
   enum prefecture: {
     北海道: 1,
