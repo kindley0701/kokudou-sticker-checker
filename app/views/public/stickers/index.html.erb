@@ -1,19 +1,22 @@
 <h1>Public::Stickers#index</h1>
 <p>Find me in app/views/public/stickers/index.html.erb</p>
 
-<table>
+<table class="table table-bordered">
     <thead>
         <tr>
-            <th></th>
-            <th></th>
-            <th></th>
+            <th>チェック</th>
+            <th>国道</th>
+            <th>販売店一覧リンク</th>
         </tr>
     </thead>
     <tbody>
         <% @stickers.each do |sticker| %>
             <tr>
-                <td>✓</td>
-                <td>国道<%= sticker.road_number %></td>
+                <td>
+                    <i class="fa-solid fa-square-check"></i>
+                    <i class="fa-regular fa-square"></i>
+                </td>
+                <td>国道<%= sticker.road_number %>号</td>
                 <td><%= link_to "ステッカー販売店", sticker_path(sticker.id) %></td>
             </tr>
         <% end %>

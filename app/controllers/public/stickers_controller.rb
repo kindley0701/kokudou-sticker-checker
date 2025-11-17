@@ -5,6 +5,6 @@ class Public::StickersController < ApplicationController
 
   def show
     @sticker = Sticker.find(params[:id])
-    @shops = @sticker.shops
+    @shops = @sticker.shops.order('prefecture ASC')
   end
 end
