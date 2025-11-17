@@ -13,8 +13,15 @@
         <% @stickers.each do |sticker| %>
             <tr>
                 <td>
-                    <i class="fa-solid fa-square-check"></i>
-                    <i class="fa-regular fa-square"></i>
+                    <% if sticker.checks.find_by(user_id: current_user.id) %>
+                        <%= link_to sticker_checks_path(sticker.id), data: { turbo_method: :delete } do %>
+                            <i class="fa-solid fa-square-check"></i>
+                        <% end %>
+                    <% else %>
+                        <%= link_to sticker_checks_path(sticker.id), data: { turbo_method: :post } do %>
+                            <i class="fa-regular fa-square"></i>
+                        <% end %>
+                    <% end %>
                 </td>
                 <td>国道<%= sticker.road_number %>号</td>
                 <td><%= link_to "ステッカー販売店", sticker_path(sticker.id) %></td>

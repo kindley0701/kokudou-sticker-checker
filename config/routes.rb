@@ -19,7 +19,9 @@ Rails.application.routes.draw do
   scope module: :public do
     root to: 'homes#top'
     get 'homes/about' , as: 'about'
-    resources 'stickers', only: [:index, :show]
+    resources 'stickers', only: [:index, :show] do
+      resource 'checks', only: [:create, :destroy]
+    end
   end
   
   # namespace :public do
