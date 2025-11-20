@@ -1,0 +1,11 @@
+<div id="check_sticker_<%= sticker.id %>">
+    <% if sticker.checks.find_by(user_id: current_user.id) %>
+        <%= link_to sticker_checks_path(sticker.id), data: { turbo_method: :delete } do %>
+            <i class="fa-solid fa-square-check"></i>
+        <% end %>
+    <% else %>
+        <%= link_to sticker_checks_path(sticker.id), data: { turbo_method: :post } do %>
+            <i class="fa-regular fa-square"></i>
+        <% end %>
+    <% end %>
+</div>

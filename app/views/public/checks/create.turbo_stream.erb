@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "check_sticker_#{@sticker.id}" do %>
+  <%= render "public/checks/check", sticker: @sticker %>
+<% end %>
