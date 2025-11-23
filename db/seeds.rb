@@ -23,7 +23,7 @@ Shop.find_or_create_by!( sticker_id: '1', name: '名阪関ドライブイン', p
 Shop.find_or_create_by!( sticker_id: '1', name: '三交イン京都八条口＜雅＞', prefecture: 26, zipcode: '601‑8002', address: '京都府京都市南区東九条上殿田町48番地1', latitude: 34.983742 , longitude: 135.758857 )
 Shop.find_or_create_by!( sticker_id: '1', name: 'ラジコン天国 名古屋店', prefecture: 23, zipcode: '455‑0021', address: '愛知県名古屋市港区木場町9‑1', latitude: 35.099742 , longitude: 136.896253 )
 Shop.find_or_create_by!( sticker_id: '2', name: '道の駅 みはら神明の里', prefecture: 34, zipcode: '729‑0324', address: '広島県三原市糸崎4丁目21‑1', latitude: 34.396816 , longitude: 133.103874 )
-Shop.find_or_create_by!( sticker_id: '2', name: 'レンタルボックスCABIN', prefecture: 22, zipcode: '530‑0001', address: '大阪府大阪市北区梅田1‑2‑2 大阪駅前第2ビルB2F', latitude: 35.6940 , longitude: 135.4980 )
+Shop.find_or_create_by!( sticker_id: '2', name: 'レンタルボックスCABIN', prefecture: 27, zipcode: '530‑0001', address: '大阪府大阪市北区梅田1‑2‑2 大阪駅前第2ビルB2F', latitude: 34.69886 , longitude: 135.497954 )
 Shop.find_or_create_by!( sticker_id: '2', name: '長沢ガーデン', prefecture: 34, zipcode: '747‑1221', address: '山口県山口市鋳銭司2296', latitude: 34.070782 , longitude: 131.465488 )
 Shop.find_or_create_by!( sticker_id: '2', name: 'セブン-イレブン 阪神甲子園球場前店', prefecture: 28, zipcode: '663‑8151', address: '兵庫県西宮市甲子園洲鳥町4‑12', latitude: 34.722531 , longitude: 135.360874 )
 Shop.find_or_create_by!( sticker_id: '2', name: 'セブン-イレブン 門司港松本店', prefecture: 40, zipcode: '801‑0863', address: '福岡県北九州市門司区栄町11‑162', latitude: 33.947008 , longitude: 130.967922 )

@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     resources 'stickers', only: [:index, :show] do
       resource 'checks', only: [:create, :destroy]
     end
+    resources 'shops', only: [:show]
   end
   
   # namespace :public do

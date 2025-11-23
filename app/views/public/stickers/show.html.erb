@@ -1,5 +1,4 @@
-<h1>Public::Stickers#show</h1>
-<p>Find me in app/views/public/stickers/show.html.erb</p>
+<div id='map' class="mb-5"></div>
 
 <h1>国道<%= @sticker.road_number %>号 販売店リスト</h1>
 <table class="table table-bordered">
@@ -15,7 +14,7 @@
         <% @shops.each do |shop| %>
             <tr>
                 <td><%= shop.prefecture %></td>
-                <td><%= shop.name %></td>
+                <td><%= link_to shop.name, shop_path(shop.id) %></td>
                 <td>
                     〒<%= shop.zipcode %>
                     <br>
@@ -27,3 +26,37 @@
     </tbody>
 </table>
 
+<style>
+#map{
+    height: 300px;
+}
+</style>
+
+<script>
+    function initMap(){
+        map = new google.maps.Map(document.getElementById("map"),{
+            center: {lat: 35, lng: 135},
+            zoom: 2
+        });
+        bounds = new google.maps.LatLngBounds();
+        var road_number = "<%= @sticker.road_number.to_s.rjust(3, '0') %>"
+        <% @shops.each do |shop| %>
+            var position = {lat: <%= shop.latitude %>, lng: <%= shop.longitude %>};
+            setMarker(map, position, road_number);
+            bounds.extend(position);
+        <% end %>
+        map.fitBounds(bounds,10);
+    };
+
+    function setMarker(map, position, road_number) {
+        marker = new google.maps.Marker({
+            map: map,
+            position: position,
+            icon: {
+                url : "/images/" + road_number + ".png",
+                scaledSize: new google.maps.Size(40, 40), // 画像サイズ
+            }
+        });
+    };
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap"></script>
