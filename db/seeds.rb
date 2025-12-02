@@ -12,13 +12,23 @@ Admin.find_or_create_by!(email: ENV['ADMIN_EMAIL']) do |admin|
    admin.password = ENV['ADMIN_PASSWORD']
 end
 
-Sticker.find_or_create_by!( road_number: '1', body: '' )
-Sticker.find_or_create_by!( road_number: '2', body: '' )
+User.find_or_create_by!(name: ENV['USER_NAME'], email: ENV['USER_EMAIL']) do |user|
+   user.password = ENV['USER_PASSWORD']
+end
+
+(1..507).each do |num|
+   unless (num >= 59 && num <=100)
+      Sticker.find_or_create_by!( road_number: num, body: '' )
+   end
+   if (num >= 109 && num <= 111) || (num >= 214 && num <= 216)
+      Sticker.find_by( road_number: num ).update!( is_active: false )
+   end
+end
 
 Shop.find_or_create_by!( sticker_id: '1', name: '道の駅 箱根峠', prefecture: 14, zipcode: '250-0521', address: '神奈川県足柄下郡箱根町箱根381‑22', latitude: 35.1866 , longitude: 139.0156 )
 Shop.find_or_create_by!( sticker_id: '1', name: 'KADODEOOIGAWA', prefecture: 22, zipcode: '428-0008', address: '静岡県島田市竹下62', latitude: 34.849516 , longitude: 138.118582 )
 Shop.find_or_create_by!( sticker_id: '1', name: '日本橋観光案内所', prefecture: 13, zipcode: '103‑0027', address: '東京都中央区日本橋1‑1‑1', latitude: 35.683725 , longitude: 139.774049 )
-Shop.find_or_create_by!( sticker_id: '1', name: 'レンタルボックスCABIN', prefecture: 27, zipcode: '530‑0001', address: '大阪府大阪市北区梅田1‑2‑2 大阪駅前第2ビルB2F', latitude: 35.6940 , longitude: 135.4980 )
+Shop.find_or_create_by!( sticker_id: '1', name: 'レンタルボックスCABIN', prefecture: 27, zipcode: '530‑0001', address: '大阪府大阪市北区梅田1‑2‑2 大阪駅前第2ビルB2F', latitude: 34.69886 , longitude: 135.497954 )
 Shop.find_or_create_by!( sticker_id: '1', name: '名阪関ドライブイン', prefecture: 24, zipcode: '519‑1114', address: '三重県亀山市関町萩原39番地', latitude: 34.840501 , longitude: 136.402655 )
 Shop.find_or_create_by!( sticker_id: '1', name: '三交イン京都八条口＜雅＞', prefecture: 26, zipcode: '601‑8002', address: '京都府京都市南区東九条上殿田町48番地1', latitude: 34.983742 , longitude: 135.758857 )
 Shop.find_or_create_by!( sticker_id: '1', name: 'ラジコン天国 名古屋店', prefecture: 23, zipcode: '455‑0021', address: '愛知県名古屋市港区木場町9‑1', latitude: 35.099742 , longitude: 136.896253 )

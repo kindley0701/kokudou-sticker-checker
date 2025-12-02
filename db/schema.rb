@@ -45,6 +45,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_11_051747) do
   create_table "stickers", force: :cascade do |t|
     t.integer "road_number", null: false
     t.text "body"
+    t.boolean "is_active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -11,15 +11,23 @@
     </thead>
     <tbody>
         <% @stickers.each do |sticker| %>
-            <tr>
-                <td>
-                    <turbo-frame id="check_sticker_<%= sticker.id %>">
-                        <%= render partial: 'public/checks/check', locals: {sticker: sticker} %>
-                    </turbo-frame>
-                </td>
-                <td>国道<%= sticker.road_number %>号</td>
-                <td><%= link_to "ステッカー販売店", sticker_path(sticker.id) %></td>
-            </tr>
+            <% if sticker.is_active %>
+                <tr>
+                    <td>
+                        <turbo-frame id="check_sticker_<%= sticker.id %>">
+                            <%= render partial: 'public/checks/check', locals: {sticker: sticker} %>
+                        </turbo-frame>
+                    </td>
+                    <td>国道<%= sticker.road_number %>号</td>
+                    <td><%= link_to "ステッカー販売店", sticker_path(sticker.id) %></td>
+                </tr>
+            <% elsif %>
+                <tr>
+                    <td>欠番</td>
+                    <td>国道<%= sticker.road_number %>号</td>
+                    <td></td>
+                </tr>
+            <% end %>
         <% end %>
     </tbody>
 </table>

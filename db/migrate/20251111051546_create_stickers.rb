@@ -4,6 +4,7 @@ class CreateStickers < ActiveRecord::Migration[7.1]
 
       t.integer :road_number, null: false
       t.text :body
+      t.boolean :is_active, default: true
 
       t.timestamps
     end

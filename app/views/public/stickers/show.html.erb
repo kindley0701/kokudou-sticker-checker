@@ -54,9 +54,8 @@
             position: position,
             icon: {
                 url : "/images/" + road_number + ".png",
-                scaledSize: new google.maps.Size(40, 40), // 画像サイズ
+                scaledSize: new google.maps.Size(30, 30), // 画像サイズ
             }
         });
     };
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap"></script>
