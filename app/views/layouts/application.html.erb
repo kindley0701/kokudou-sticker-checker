@@ -16,6 +16,7 @@
         <%= link_to "管理者ログアウト", destroy_admin_session_path, data: { turbo_method: :delete } %>
       <% elsif user_signed_in? %>
         <%= current_user.name %>さん、こんにちは！
+        <%= link_to "マイページ", users_mypage_path %>
         <%= link_to "ステッカー一覧", stickers_path %>
         <%= link_to "ユーザーログアウト", destroy_user_session_path, data: { turbo_method: :delete } %>
       <% else %>
@@ -24,5 +25,6 @@
       <% end %>
     </div>
     <%= yield %>
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_API_KEY'] %>&callback=initMap"></script>
   </body>
 </html>

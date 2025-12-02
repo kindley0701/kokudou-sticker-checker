@@ -1,0 +1,66 @@
+<div>
+    <% if @flg %>
+        <span><%= link_to '全店舗表示', users_mypage_path %></span>
+        |  
+        <span>未獲得店舗表示</span>
+    <% else %>
+        <span>全店舗表示</span>
+        |  
+        <span><%= link_to '未獲得店舗表示', users_mypage_path(check_flg: true) %></span>
+    <% end %>
+</div>
+<div id='map' class="my-5"></div>
+
+<style>
+#map{
+    height: 300px;
+}
+</style>
+
+<script>
+    function initMap(){
+        map = new google.maps.Map(document.getElementById("map"),{
+            center: {lat: 35, lng: 135},
+            zoom: 2
+        });
+        bounds = new google.maps.LatLngBounds();
+        <% @shops.each do |shop| %>
+            var position = {lat: <%= shop.latitude %>, lng: <%= shop.longitude %>};
+            var road_number = "<%= shop.sticker.road_number.to_s.rjust(3, '0') %>"
+            setMarker(map, position, road_number, "<%= shop.name %>");
+            bounds.extend(position);
+        <% end %>
+        map.fitBounds(bounds,10);
+    };
+
+    function setMarker(map, position, road_number, shop_name) {
+        marker = new google.maps.Marker({
+            map: map,
+            position: position,
+            icon: {
+                url : "/images/" + road_number + ".png",
+                scaledSize: new google.maps.Size(20, 20), // 画像サイズ
+            }
+        });
+        // const infowindow = new google.maps.InfoWindow({
+        //     content: `
+        //         <div style="font-size: 14px;">
+        //             店舗ページを見る
+        //         </div>
+        //     `
+        // });
+
+        // marker.addListener("click", () => {
+        //     infowindow.open({
+        //         anchor: marker,
+        //         map,
+        //     });
+        // });
+        marker.addListener("click", function() {
+            // 緯度・経度で Google Maps を開く
+            var url = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(shop_name);
+
+            window.open(url, '_blank');  // 新しいタブで開く
+        });
+    };
+</script>

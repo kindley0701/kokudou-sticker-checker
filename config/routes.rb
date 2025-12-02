@@ -23,6 +23,7 @@ Rails.application.routes.draw do
       resource 'checks', only: [:create, :destroy]
     end
     resources 'shops', only: [:show]
+    get 'users/mypage'
   end
   
   # namespace :public do
