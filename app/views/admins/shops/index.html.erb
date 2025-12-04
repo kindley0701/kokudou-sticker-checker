@@ -1,0 +1,25 @@
+
+<h2>店舗一覧</h2>
+<p>店舗総数：<%= @shops.count %>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>国道</th>
+            <th>都道府県</th>
+            <th>店舗名</th>
+            <th>住所</th>
+            <th>緯度経度</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @shops.each do |shop| %>
+            <tr>
+                <td><%= shop.sticker.road_number %></td>
+                <td><%= shop.prefecture %></td>
+                <td><%= shop.name %></td>
+                <td><%= shop.zipcode %>  <%= shop.address %></td>
+                <td>(<%= shop.latitude %> , <%= shop.longitude %>)</td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>

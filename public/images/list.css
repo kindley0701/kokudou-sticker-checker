@@ -1,0 +1,203 @@
+﻿body {
+    margin: 0;
+    font-family: 'メイリオ', 'Hiragino Kaku Gothic Pro', sans-serif;
+}
+
+dl {
+    padding: 0;
+    margin: 3px;
+}
+
+dt {
+    text-align: right;
+    margin: 0;
+    font-size: x-small;
+}
+
+dd {
+    font-size: smaller;
+    margin:0;
+}
+
+    dd a {
+        color: #000;
+        text-decoration: none;
+        display: block;
+        padding: 3px 10px;
+        margin: 5px 0 0 0;
+        border-radius: 5px;
+        background-color: #ccc;
+        text-align: center;
+        font-size: 10px;
+    }
+
+h2 {
+    margin: 3px 0 0 0;
+    font-size: small;
+    line-height:1.2;
+}
+
+.box-logo {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    width: 200px;
+    margin: 0;
+    padding: 15px;
+    text-align: center;
+    color: #333;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 5px;
+    line-height: 1.2;
+}
+
+    .box-logo h1 {
+        margin: 0;
+        font-size: medium;
+    }
+
+    .box-logo select {
+        width: 100%;
+        margin-top: 5px;
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.8);
+    }
+
+.box-logo-change {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    width: 200px;
+    margin: 0;
+    padding: 15px;
+    text-align: center;
+    color: #333;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 5px;
+    line-height: 1.2;
+}
+
+    .box-logo-change h1 {
+        margin: 0;
+        font-size: medium;
+    }
+
+    .box-logo-change select {
+        width: 100%;
+        margin: 5px 0;
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.8);
+    }
+
+.box-remarks {
+    position: fixed;
+    bottom: 20px;
+    right: 55px;
+    padding: 8px 3px 0 3px;
+    font-size: small;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 5px;
+}
+
+    .box-remarks img {
+        width: 20px;
+        vertical-align: 0;
+        margin: 0 -3px 0 3px;
+    }
+
+
+/* グリッド */
+.post {
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    grid-column-gap:10px;
+    padding:10px;
+    margin:0 auto;
+}
+
+.post-list {
+    grid-column:1 / 5;
+}
+
+.post-list ul {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns:repeat(auto-fit,220px);
+    list-style: none;
+    margin:0;
+    padding:0 0 50px 0;
+}
+
+    .post-list dl {
+        margin-top: -10px;
+    }
+
+    .post-list dt {
+        font-weight:bold;
+    }
+
+.post-list h2 {
+    padding:3px 0 7px 0;
+}
+
+    .post-list a {
+        color: #000;
+        text-decoration: none;
+        display: block;
+        padding: 0 10px;
+        margin: 30px 0 0 10px;
+        border-radius: 5px;
+        background-color: #f99;
+        font-size: small;
+        min-height: 75px;
+    }
+
+        .post-list .a-blue {
+            background-color: #9cf;
+        }
+
+        .post-list .a-gray {
+            background-color: #ccc;
+        }
+
+    .post-list .a-white {
+        background-color:#fff;
+        margin-top:-10px;
+    }
+
+        .post-list a img {
+            margin: -20px 0 0 -20px;
+            width:35px;
+        }
+
+/* ##### 画面の横幅767ピクセル以下 ##### */
+@media (max-width: 767px) {
+
+    .box-logo-change {
+        width: 160px;
+        padding: 10px;
+    }
+
+        .box-logo-change h1 {
+            font-size: small;
+            margin:0;
+        }
+
+    .box-remarks {
+        font-size:x-small;
+        padding:5px 0 0 0;
+    }
+
+        .box-remarks img {
+            width:15px;
+            }
+
+    .post-list ul {
+        grid-template-columns: repeat(auto-fit,170px);
+    }
+    .post-list a {
+        margin: 15px 0 5px 10px;
+    }
+ 
+    }

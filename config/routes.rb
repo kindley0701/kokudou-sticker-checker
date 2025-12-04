@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
   
-  namespace :admins do
-    root to: 'homes#top'
-  end
-  
   devise_for :admins, skip: [:registrations, :passwords], controllers: {
     sessions: "admins/sessions"
   }
@@ -15,6 +11,13 @@ Rails.application.routes.draw do
     passwords: "public/passwords",
     confirmations: "public/confirmations"
   }
+
+  namespace :admins do
+    root to: 'homes#top'
+    patch 'shops/update_all', as: 'update_all_shops'
+    resources 'shops', only: [:edit, :create, :update, :index]
+    
+  end
   
   scope module: :public do
     root to: 'homes#top'

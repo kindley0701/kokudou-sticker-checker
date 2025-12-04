@@ -1,2 +1,32 @@
 <h1>Admins::Homes#top</h1>
 <p>Find me in app/views/admins/homes/top.html.erb</p>
+
+<%= link_to "販売店一覧", admins_shops_path %>
+
+<h2>販売店登録</h2>
+<%= form_with url: admins_shops_path do |f| %>
+  <div class='choice_box'>
+    <%= f.file_field :file, id: 'post' %>
+  </div>
+  <%= f.submit 'インポート' %>
+<% end %>
+
+<h2>販売店住所登録</h2>
+<%= link_to "実行", admins_update_all_shops_path, data: { "turbo-method": "patch" } %>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>国道</th>
+            <th>販売店舗数</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @stickers.each do |sticker| %>
+            <tr>
+                <td><%= sticker.road_number %></td>
+                <td><%= sticker.shops.count %></td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
