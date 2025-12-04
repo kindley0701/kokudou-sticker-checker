@@ -35,7 +35,7 @@ class Admins::ShopsController < ApplicationController
       encoded = CGI.escape(query)
 
       url = "https://maps.googleapis.com/maps/api/geocode/json" \
-            "?address=#{encoded}&key=#{ENV['GOOGLE_API_KEY']}"
+            "?address=#{encoded}&key=#{ENV['GOOGLE_API_KEY']}&language=ja"
 
       uri = URI(url)
       response = Net::HTTP.get(uri)
@@ -66,7 +66,7 @@ class Admins::ShopsController < ApplicationController
       top = results.first
 
       formatted_address = top["formatted_address"] # address カラムへ保存
-
+      address   = clean_formatted_address(formatted_address)
       # 郵便番号（"postal_code" の address_component を探す）
       zipcode = extract_zipcode(top)
 
@@ -78,12 +78,12 @@ class Admins::ShopsController < ApplicationController
       # ---------- 保存 ----------
       shop.update!(
         zipcode: zipcode,
-        address: formatted_address,
+        address: address,
         latitude: lat,
         longitude: lng
       )
 
-      Rails.logger.info "\e[32m[Saved] #{shop.name} → ZIP: #{zipcode}, ADDRESS: #{formatted_address}, LAT: #{lat}, LNG: #{lng}\e[0m"
+      Rails.logger.info "\e[32m[Saved] #{shop.name} → ZIP: #{zipcode}, ADDRESS: #{address}, LAT: #{lat}, LNG: #{lng}\e[0m"
     end
 
     Rails.logger.info "======================================="
@@ -101,5 +101,25 @@ class Admins::ShopsController < ApplicationController
     comp = result["address_components"]
     zip = comp.find { |c| c["types"].include?("postal_code") }
     zip ? zip["long_name"] : nil
+  end
+
+  def clean_formatted_address(addr)
+    return "" if addr.blank?
+
+    cleaned = addr.dup
+
+    # 「〒123-4567」の郵便番号を削除
+    cleaned.gsub!(/〒?\s*\d{3}-\d{4}/, "")
+
+    # 「日本」を削除
+    cleaned.gsub!(/\b日本\b/, "")
+    cleaned.gsub!(/\bJapan\b/i, "")
+
+    # 先頭や末尾の空白・カンマを整える
+    cleaned.gsub!(/\A[、,\s]+/, '')
+    cleaned.gsub!(/^[,\s]+|[,\s]+$/, "")
+    cleaned.gsub!(/\s+/, "")
+    
+    cleaned.strip
   end
 end
