@@ -1,2 +1,20 @@
-<h1>Public::Homes#top</h1>
-<p>Find me in app/views/public/homes/top.html.erb</p>
+<div class="container">
+    <div class="row my-4">
+        <div class='d-flex justify-content-center'>
+            <div><img src='/images/001.png' alt='001' class='top-sticker'></div>
+            <div><h2 class='text-center mx-1'>国道ステッカーチェッカー</h2></div>
+            <div><img src='/images/507.png' alt='001' class='top-sticker'></div>
+        </div>
+    </div>
+    <div class="row my-5 text-center">
+        <div class="d-flex justify-content-center">
+            <i class="fa-solid fa-car-side"></i>
+            <p class="mx-2">あなたも日本国道制覇を目指そう</p>
+            <i class="fa-solid fa-car-side"></i>
+        </div>
+    </div>
+    <div class="row my-5 mx-2">
+        <%= link_to 'ユーザーログイン', new_user_session_path, class: 'btn btn-success my-1' %>
+        <%= link_to 'ユーザー新規登録', new_user_registration_path, class: 'btn btn-info' %>
+    </div>
+</div>

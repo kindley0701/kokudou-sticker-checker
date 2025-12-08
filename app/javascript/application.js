@@ -3,9 +3,5 @@ import "@hotwired/turbo-rails"
 
 // import { Turbo } from "@hotwired/turbo-rails"
 // Turbo.session.drive = false
-
-//= require jquery3
-//= require popper
-//= require bootstrap
-
+import "bootstrap"
 import "@fortawesome/fontawesome-free"

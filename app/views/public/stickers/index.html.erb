@@ -1,34 +1,34 @@
-<h1>Public::Stickers#index</h1>
-<p>Find me in app/views/public/stickers/index.html.erb</p>
-
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>チェック</th>
-            <th>国道</th>
-            <th>販売店一覧リンク</th>
-        </tr>
-    </thead>
-    <tbody>
-        <% @stickers.each do |sticker| %>
-            <% if sticker.is_active %>
+<div class="container">
+    <div class="row">
+        <table class="table table-bordered mx-1">
+            <thead>
                 <tr>
-                    <td>
-                        <turbo-frame id="check_sticker_<%= sticker.id %>">
-                            <%= render partial: 'public/checks/check', locals: {sticker: sticker} %>
-                        </turbo-frame>
-                    </td>
-                    <td>国道<%= sticker.road_number %>号</td>
-                    <td><%= link_to "ステッカー販売店", sticker_path(sticker.id) %></td>
+                    <th>チェック</th>
+                    <th>国道</th>
+                    <th>販売店一覧リンク</th>
                 </tr>
-            <% elsif %>
-                <tr>
-                    <td>欠番</td>
-                    <td>国道<%= sticker.road_number %>号</td>
-                    <td></td>
-                </tr>
-            <% end %>
-        <% end %>
-    </tbody>
-</table>
-
+            </thead>
+            <tbody>
+                <% @stickers.each do |sticker| %>
+                    <% if sticker.is_active %>
+                        <tr>
+                            <td>
+                                <turbo-frame id="check_sticker_<%= sticker.id %>">
+                                    <%= render partial: 'public/checks/check', locals: {sticker: sticker} %>
+                                </turbo-frame>
+                            </td>
+                            <td>国道<%= sticker.road_number %>号</td>
+                            <td><%= link_to "ステッカー販売店", sticker_path(sticker.id) %></td>
+                        </tr>
+                    <% elsif %>
+                        <tr>
+                            <td>欠番</td>
+                            <td>国道<%= sticker.road_number %>号</td>
+                            <td></td>
+                        </tr>
+                    <% end %>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+</div>
