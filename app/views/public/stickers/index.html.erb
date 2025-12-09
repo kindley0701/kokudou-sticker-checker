@@ -1,11 +1,12 @@
 <div class="container">
+    <h2 class="text-center">国道一覧</h2>
     <div class="row">
         <table class="table table-bordered mx-1">
             <thead>
                 <tr>
-                    <th>チェック</th>
+                    <th><i class="fa-regular fa-square-check"></i></th>
                     <th>国道</th>
-                    <th>販売店一覧リンク</th>
+                    <th>販売店一覧</th>
                 </tr>
             </thead>
             <tbody>
@@ -17,7 +18,7 @@
                                     <%= render partial: 'public/checks/check', locals: {sticker: sticker} %>
                                 </turbo-frame>
                             </td>
-                            <td>国道<%= sticker.road_number %>号</td>
+                            <td><img src='/images/<%= sticker.road_number.to_s.rjust(3,'0') %>.png' class="top-sticker ms-1 me-3">国道<%= sticker.road_number %>号</td>
                             <td><%= link_to "ステッカー販売店", sticker_path(sticker.id) %></td>
                         </tr>
                     <% elsif %>

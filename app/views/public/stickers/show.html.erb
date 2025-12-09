@@ -5,8 +5,7 @@
     <thead>
         <tr>
             <th>都道府県</th>
-            <th>店舗名</th>
-            <th>住所</th>
+            <th>店舗名・住所</th>
             <th>Google Map</th>
         </tr>
     </thead>
@@ -14,8 +13,9 @@
         <% @shops.each do |shop| %>
             <tr>
                 <td><%= shop.prefecture %></td>
-                <td><%= link_to shop.name, shop_path(shop.id) %></td>
                 <td>
+                    <%= link_to shop.name, shop_path(shop.id) %>
+                    <br>
                     〒<%= shop.zipcode %>
                     <br>
                     <%= shop.address %>
