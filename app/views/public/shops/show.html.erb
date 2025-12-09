@@ -26,19 +26,25 @@
 
 <script>
     async function initMap(){
-        let map = new google.maps.Map(document.getElementById('map'), {
+        map = new google.maps.Map(document.getElementById('map'), {
             center: {lat: <%= @shop.latitude %>, lng: <%= @shop.longitude %>},
             zoom: 14,
             mapTypeControl: false, // 地図・衛星写真の切り替え不要
             streetViewControl: false, // ストリートビュー不要
         });
-        new google.maps.Marker({
+        marker = new google.maps.Marker({
             position: {lat: <%= @shop.latitude %>, lng: <%= @shop.longitude %>}, // 配置する座標
             map: map, // 対象マップ
             icon: {
                 url : "/images/<%= @shop.sticker.road_number.to_s.rjust(3,'0') %>.png",
                 scaledSize: new google.maps.Size(40, 40), // 画像サイズ
             }
+        });
+        marker.addListener("click", function() {
+            // 緯度・経度で Google Maps を開く
+            var url = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("<%= @shop.name %>");
+
+            window.open(url, '_blank');  // 新しいタブで開く
         });
     }
 </script>

@@ -33,22 +33,24 @@
 </style>
 
 <script>
-    function initMap(){
+    async function initMap(){
         map = new google.maps.Map(document.getElementById("map"),{
-            center: {lat: 35, lng: 135},
-            zoom: 2
+            // center: {lat: 35, lng: 135},
+            // zoom: 2,
+            mapTypeControl: false, // 地図・衛星写真の切り替え不要
+            streetViewControl: false, // ストリートビュー不要
         });
         bounds = new google.maps.LatLngBounds();
         var road_number = "<%= @sticker.road_number.to_s.rjust(3, '0') %>"
         <% @shops.each do |shop| %>
             var position = {lat: <%= shop.latitude %>, lng: <%= shop.longitude %>};
-            setMarker(map, position, road_number);
+            setMarker(map, position, road_number, "<%= shop.name %>");
             bounds.extend(position);
         <% end %>
         map.fitBounds(bounds,10);
     };
 
-    function setMarker(map, position, road_number) {
+    function setMarker(map, position, road_number, shop_name) {
         marker = new google.maps.Marker({
             map: map,
             position: position,
@@ -56,6 +58,12 @@
                 url : "/images/" + road_number + ".png",
                 scaledSize: new google.maps.Size(30, 30), // 画像サイズ
             }
+        });
+        marker.addListener("click", function() {
+            // 緯度・経度で Google Maps を開く
+            var url = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(shop_name);
+
+            window.open(url, '_blank');  // 新しいタブで開く
         });
     };
 </script>

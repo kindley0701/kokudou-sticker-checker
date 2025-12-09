@@ -1,13 +1,23 @@
 <div class="container">
     <div class="d-flex justify-content-center my-3">
-        <% if @flg %>
-            <span class="mx-2"><%= link_to '全店舗表示', users_mypage_path %></span>
-            |  
-            <span class="mx-2">未獲得店舗表示</span>
+        <% if @flg == 'not_get' %>
+            <span class="mx-2"><%= link_to '全店舗', users_mypage_path %></span>
+            |
+            <span class="mx-2"><%= link_to '獲得済み店舗', users_mypage_path(check_flg: 'got') %></span>
+            |
+            <span class="mx-2">未獲得店舗</span>
+        <% elsif @flg == 'got' %>
+            <span class="mx-2"><%= link_to '全店舗', users_mypage_path %></span>
+            |
+            <span class="mx-2">獲得済み店舗</span>
+            |
+            <span class="mx-2"><%= link_to '未獲得店舗', users_mypage_path(check_flg: 'not_get') %></span>
         <% else %>
-            <span class="mx-2">全店舗表示</span>
-            |  
-            <span class="mx-2"><%= link_to '未獲得店舗表示', users_mypage_path(check_flg: true) %></span>
+            <span class="mx-2">全店舗</span>
+            |
+            <span class="mx-2"><%= link_to '獲得済み店舗', users_mypage_path(check_flg: 'got') %></span>
+            |
+            <span class="mx-2"><%= link_to '未獲得店舗', users_mypage_path(check_flg: 'not_get') %></span>
         <% end %>
     </div>
     <div id='map' class="my-4"></div>
@@ -19,10 +29,12 @@
 </style>
 
 <script>
-    function initMap(){
+    async function initMap(){
         map = new google.maps.Map(document.getElementById("map"),{
-            center: {lat: 35, lng: 135},
-            zoom: 2
+            // center: {lat: 35, lng: 135},
+            // zoom: 15,
+            mapTypeControl: false, // 地図・衛星写真の切り替え不要
+            streetViewControl: false, // ストリートビュー不要
         });
         bounds = new google.maps.LatLngBounds();
         <% @shops.each do |shop| %>
@@ -43,20 +55,6 @@
                 scaledSize: new google.maps.Size(20, 20), // 画像サイズ
             }
         });
-        // const infowindow = new google.maps.InfoWindow({
-        //     content: `
-        //         <div style="font-size: 14px;">
-        //             店舗ページを見る
-        //         </div>
-        //     `
-        // });
-
-        // marker.addListener("click", () => {
-        //     infowindow.open({
-        //         anchor: marker,
-        //         map,
-        //     });
-        // });
         marker.addListener("click", function() {
             // 緯度・経度で Google Maps を開く
             var url = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(shop_name);

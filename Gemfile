@@ -76,3 +76,4 @@ gem 'jquery-rails'
 gem "sassc-rails" 
 gem 'pry-rails'
 gem 'nokogiri'
+gem "mini_magick", "~> 5.3"
