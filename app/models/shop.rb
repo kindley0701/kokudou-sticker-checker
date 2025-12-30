@@ -50,4 +50,70 @@ class Shop < ApplicationRecord
     鹿児島県: 46,
     沖縄県: 47
   }
+
+  # (1) 生成を行うクラスメソッド
+  def self.generate_marker_jobs_json
+    require 'json'
+    require 'fileutils'
+
+    # JSON 出力先
+    json_path = Rails.root.join("tmp", "marker_jobs.json")
+    FileUtils.mkdir_p(File.dirname(json_path))
+
+    jobs = []
+
+    # 同一店舗（name, lat, lng）で sticker_id が 2つ以上のグループ
+    groups = Shop.group(:name, :latitude, :longitude)
+                .having("COUNT(DISTINCT sticker_id) >= 2")
+                .pluck(:name, :latitude, :longitude)
+
+    groups.each do |name, lat, lng|
+      shops = Shop.where(name: name, latitude: lat, longitude: lng)
+
+      # road_number を取得して昇順に並べる
+      road_numbers = shops.map { |s| s.sticker.road_number }.sort
+
+      next if road_numbers.size < 2   # 念のため
+
+      small = "%03d" % road_numbers[0]
+      large = "%03d" % road_numbers[1]
+
+      # 出力ファイル名
+      output_filename = "#{small}_#{large}.png"
+      output_path = "public/images/combined/#{output_filename}"
+
+      # 使用する画像
+      image_paths = road_numbers.map { |num| "public/images/#{'%03d' % num}.png" }
+
+      # JSON の 1 レコード
+      jobs << {
+        name: name,
+        lat: lat,
+        lng: lng,
+        output: output_path,
+        images: image_paths
+      }
+    end
+
+    # JSON 書き込み
+    File.open(json_path, "w") do |f|
+      f.write(JSON.pretty_generate(jobs))
+    end
+
+    puts "Generated JSON: #{json_path}"
+  end
+
+
+  # (2) 個別 Shop のアイコンURLを返すインスタンスメソッド
+  #     同位置に複数レコードがある場合は合成ファイルを返す
+  def combined_marker_url
+    group_shops = Shop.where(name: name, latitude: latitude, longitude: longitude)
+    if group_shops.count < 2
+      # 単一ステッカー：通常の画像（public/images または app/assets から）
+      "/images/#{format('%03d', sticker.road_number)}.png"
+    else
+      filename = Digest::MD5.hexdigest("#{name}-#{latitude}-#{longitude}") + ".png"
+      "/images/combined/#{filename}"
+    end
+  end
 end
