@@ -20,7 +20,7 @@ class Admins::ShopsController < ApplicationController
   end
 
   def index
-    @shops = Shop.all
+    @shops = Shop.order(:id)
   end
 
   def edit
