@@ -1,2 +1,14 @@
 <h1>Admins::Shops#edit</h1>
 <p>Find me in app/views/admins/shops/edit.html.erb</p>
+
+<%= form_with model: @shop, url: admins_shop_path do |f| %>
+  <p>都道府県　<%= f.select :prefecture, Shop.prefectures.keys.map { |k| [t("enum.shop.prefecture.#{k}"), k ]} %></p>
+  <p>店舗名　<%= @shop.name %></p>
+  <%= f.label :zipcode %>
+  <%= f.text_field :zipcode %><br>
+  <%= f.label :address %>
+  <%= f.text_area :address  %><br>
+  <p>(<%= @shop.latitude %>,<%= @shop.longitude %>)</p>
+  <%= f.submit %>
+
+<% end %>

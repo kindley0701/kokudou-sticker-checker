@@ -24,6 +24,7 @@ class Admins::ShopsController < ApplicationController
   end
 
   def edit
+    @shop = Shop.find(params[:id])
   end
 
   def update_all
@@ -93,8 +94,33 @@ class Admins::ShopsController < ApplicationController
     redirect_to admins_shops_path, notice: "住所・緯度経度の更新が完了しました"
   end
 
+  def update
+    shop = Shop.find(params[:id])
+    shop.update(shop_params)
+
+    address = "#{shop.zipcode} #{shop.address}"
+    uri = URI("https://maps.googleapis.com/maps/api/geocode/json")
+    uri.query = URI.encode_www_form(address: address, key: ENV["GOOGLE_API_KEY"])
+    
+    response = Net::HTTP.get_response(uri)
+    json = JSON.parse(response.body)
+    return unless json["status"] == "OK"
+    location = json["results"][0]["geometry"]["location"]
+    shop.update_columns(
+      latitude: location["lat"],
+      longitude: location["lng"],
+      updated_at: Time.current
+    )
+    redirect_to admins_shops_path
+    
+  end
+
 
   private
+
+  def shop_params
+    params.require(:shop).permit(:prefecture,:zipcode,:address)
+  end
 
   # 郵便番号を抽出
   def extract_zipcode(result)
